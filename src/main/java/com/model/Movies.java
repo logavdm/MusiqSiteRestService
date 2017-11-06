@@ -1,19 +1,24 @@
 package com.model;
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name="Movies")
 public class Movies {
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-	private int mid;
+	private int host_movie_id;
 	private String name;
 	private String artist;
 	private String year;
@@ -22,7 +27,16 @@ public class Movies {
 	private String thumb;
 	private String url_320;
 	private String url_160;
+	@OneToMany(cascade = CascadeType.ALL,mappedBy = "movie",fetch = FetchType.EAGER)
+	@JsonManagedReference
+	private Set<Songs> songs;
 	
+	public Set<Songs> getSongs() {
+		return songs;
+	}
+	public void setSongs(Set<Songs> songs) {
+		this.songs = songs;
+	}
 	public int getId() {
 		return id;
 	}
@@ -30,10 +44,10 @@ public class Movies {
 		this.id = id;
 	}
 	public int getMid() {
-		return mid;
+		return host_movie_id;
 	}
 	public void setMid(int mid) {
-		this.mid = mid;
+		this.host_movie_id = mid;
 	}
 	public String getName() {
 		return name;

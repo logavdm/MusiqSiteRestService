@@ -29,8 +29,8 @@ public class MoviesService implements MoviesRepositry {
 
 	@Override
 	public <S extends Movies> S save(S entity) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return repo.save(entity);
 	}
 
 	@Override
